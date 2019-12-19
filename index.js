@@ -17,12 +17,12 @@ app.get("/search-songs/:query", async (req, res) => {
     res.json({results: results || []});
 });
 
-app.get("/api/search-lyrics/:query", async (req, res) => {
+app.get("/search-lyrics/:query", async (req, res) => {
     const lyrics = await genius.searchLyrics(req.params.query);
     res.json({lyrics: lyrics || false});
 });
 
-app.get("/api/ping", async (req, res) => {
+app.get("/ping", async (req, res) => {
     res.send(true);
 });
 
