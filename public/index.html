@@ -17,7 +17,17 @@
         <![endif]-->
         
 
-        This is the home page
-        <!-- <script src="" async defer></script> -->
+        <input type="text" />
+
+        <script>
+            async function findLyrics(query) {
+                const request = await fetch("songs/"+encodeURIComponent(query));
+                const json = await request.json();
+
+                return json.lyrics || false;
+            }
+
+            
+        </script>
     </body>
 </html>
