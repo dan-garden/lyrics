@@ -17,7 +17,7 @@ app.get("/api/search-songs/:query", async (req, res) => {
     res.json({results: results || []});
 });
 
-app.get("/api/search-lyrics/:query", async (req, res) => {
+app.get("/api/find-lyrics/:query", async (req, res) => {
     const lyrics = await genius.searchLyrics(req.params.query);
     res.json({lyrics: lyrics || false});
 });
