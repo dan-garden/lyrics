@@ -26,4 +26,6 @@ app.get("/ping", async (req, res) => {
     res.send(true);
 });
 
+app.use('/', express.static(__dirname + '/public'))
+
 app.listen(process.env.PORT, console.log("Server stared on port " + process.env.PORT));
