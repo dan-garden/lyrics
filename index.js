@@ -7,22 +7,22 @@ const cors = require('cors');
 const app = express();
 app.use(cors());
 
-app.get("/api/crawl/:url", async (req, res) => {
+app.get("/crawl/:url", async (req, res) => {
     const lyrics = await genius.getLyrics(req.params.url);
     res.json({lyrics: lyrics || false});
 });
 
-app.get("/api/songs/:query", async (req, res) => {
+app.get("/songs/:query", async (req, res) => {
     const results = await genius.searchSongs(req.params.query);
     res.json({results: results || []});
 });
 
-app.get("/api/find/:query", async (req, res) => {
+app.get("/find/:query", async (req, res) => {
     const lyrics = await genius.searchLyrics(req.params.query);
     res.json({lyrics: lyrics || false});
 });
 
-app.get("/api/ping", async (req, res) => {
+app.get("/ping", async (req, res) => {
     res.send(true);
 });
 
