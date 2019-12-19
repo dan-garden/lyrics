@@ -1,0 +1,22 @@
+{
+  "name": "lyrics",
+  "version": "1.0.0",
+  "description": "genius.com lyrics crawler",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Daniel Garden",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "jsdom": "^15.2.1",
+    "node-fetch": "^2.6.0"
+  },
+  "engines": {
+    "node": "10.16.0"
+  }
+}
