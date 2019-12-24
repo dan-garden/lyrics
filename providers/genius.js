@@ -4,7 +4,7 @@ const {
     JSDOM
 } = jsdom;
 
-module.exports = class GeniusAPI {
+class GeniusAPI {
     static async getLyrics(url) {
         const request = await fetch(url);
         const html = await request.text();
@@ -15,7 +15,7 @@ module.exports = class GeniusAPI {
         return lyrics;
     }
     
-    static async searchSongs(query) {
+    static async searchSongsData(query) {
         const request = await fetch("https://genius.com/api/search/multi?q=" + encodeURIComponent(query), {
             "credentials": "include",
             "headers": {
@@ -49,8 +49,21 @@ module.exports = class GeniusAPI {
     
         return results;
     }
+
+    static async searchSongs(query) {
+        let results = await this.searchSongsData(query);
+        results = results.map(result => {
+            return {
+                title: result.title,
+                artist: result.primary_artist.name,
+                url: result.url
+            }
+        })
+
+        return results;
+    }
     
-    static async searchLyrics(query) {
+    static async findLyrics(query) {
         const songs = await this.searchSongs(query);
         let lyrics = false;
         if(songs.length > 0) {
@@ -60,3 +73,5 @@ module.exports = class GeniusAPI {
         return lyrics;
     }
 }
+
+module.exports = GeniusAPI;

@@ -15,19 +15,28 @@
         <!--[if lt IE 7]>
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
-        
 
-        <input type="text" />
+        <div id="app"></div>
 
+
+        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
         <script>
+
+            var app = new Vue({
+                el: '#app',
+                data: {
+                    message: 'Hello Vue!'
+                }
+            });
+
+             
             async function findLyrics(query) {
-                const request = await fetch("songs/"+encodeURIComponent(query));
+                const request = await fetch("find/"+encodeURIComponent(query));
                 const json = await request.json();
 
                 return json.lyrics || false;
             }
 
-            
         </script>
     </body>
 </html>
