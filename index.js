@@ -41,7 +41,7 @@ app.get("/genius/crawl/:url", async (req, res) => {
 app.get("/genius/songs/:query", async (req, res) => {
     const results = await providers.searchSongs(req.params.query, ['genius']);
     res.json({
-        results: results || []
+        results: results.genius || []
     });
 });
 
@@ -63,7 +63,7 @@ app.get("/azlyrics/crawl/:url", async (req, res) => {
 app.get("/azlyrics/songs/:query", async (req, res) => {
     const results = await providers.searchSongs(req.params.query, ['azlyrics']);
     res.json({
-        results: results || []
+        results: results.azlyrics || []
     });
 });
 
@@ -85,7 +85,7 @@ app.get("/lyricsmode/crawl/:url", async (req, res) => {
 app.get("/lyricsmode/songs/:query", async (req, res) => {
     const results = await providers.searchSongs(req.params.query, ['lyricsmode']);
     res.json({
-        results: results || []
+        results: results.lyricsmode || []
     });
 });
 
@@ -107,7 +107,7 @@ app.get("/songlyrics/crawl/:url", async (req, res) => {
 app.get("/songlyrics/songs/:query", async (req, res) => {
     const results = await providers.searchSongs(req.params.query, ['songlyrics']);
     res.json({
-        results: results || []
+        results: results.songlyrics || []
     });
 });
 

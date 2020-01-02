@@ -2,41 +2,53 @@
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Lyrics API</title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="">
-    </head>
-    <body>
-        <!--[if lt IE 7]>
+<!--[if gt IE 8]><!-->
+<html class="no-js">
+<!--<![endif]-->
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Get Lyrics</title>
+    <meta name="description" content="Get Song Lyrics">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <!--[if lt IE 7]>
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
 
-        <div id="app"></div>
+    <div id="app">
+        <form id="search-form" v-on:submit.prevent="submitSearch">
+            <img id="logo" src="images/logo.png" />
+            <input id="query" autocomplete="off" v-on:keyup="queryChange" type="text" placeholder="Song title..."
+                v-model="query" />
+            <ul id="suggestions" v-if="suggestions.length > 0">
+                <li v-for="suggestion in suggestions" v-on:click="showLyrics(suggestion)">
+                    <span class="song-artist">{{suggestion.artist}} - </span>
+                    <span class="song-title">{{suggestion.title}}</span>
+                </li>
+            </ul>
+        </form>
 
 
-        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-        <script>
+        <div v-if="lyrics" id="lyrics-container">
+            <h3 class="song-name" v-if="lyrics.title && lyrics.artist">
+                <span class="song-artist">{{lyrics.artist}} - </span>
+                <span class="song-title">{{lyrics.title}}</span>
+            </h3>
+            <span id="lyrics-loading" v-if="lyrics.loading">Loading...</span>
+            <p v-if="!lyrics.loading && lyrics.body" v-html="lyrics.body"></p>
+        </div>
+    </div>
 
-            var app = new Vue({
-                el: '#app',
-                data: {
-                    message: 'Hello Vue!'
-                }
-            });
 
-             
-            async function findLyrics(query) {
-                const request = await fetch("find/"+encodeURIComponent(query));
-                const json = await request.json();
 
-                return json.lyrics || false;
-            }
 
-        </script>
-    </body>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="js/main.js"></script>
+</body>
+
 </html>

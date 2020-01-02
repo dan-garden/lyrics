@@ -37,6 +37,7 @@ class Providers {
         for(let provider of providers) {
             results[provider] = await types[provider].findLyrics(query);
         }
+        
         return results;
     }
 }
