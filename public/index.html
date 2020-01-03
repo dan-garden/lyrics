@@ -27,24 +27,39 @@
     <div id="app">
         <form id="search-form" v-on:submit.prevent="submitSearch">
             <img id="logo" src="images/logo.png" />
-            <input id="query" autocomplete="off" v-on:keyup="queryChange" type="text" placeholder="Song title..."
+            <span id="provider-text">
+                current provider:
+                <span class="url">{{ curProvider().url }} [{{ (provider)+1 }}]</span>
+                <button id="change-provider" v-on:click="cycleProvider()">change</button>
+            </span>
+            <input
+                id="query"
+                autocomplete="off"
+                v-on:keyup="startCountdown"
+                v-on:keydown="clearCountdown"
+                type="text"
+                placeholder="Song title..."
                 v-model="query" />
-            <ul id="suggestions" v-if="suggestions.length > 0">
-                <li v-for="suggestion in suggestions" v-on:click="showLyrics(suggestion)">
-                    <span class="song-artist">{{suggestion.artist}} - </span>
-                    <span class="song-title">{{suggestion.title}}</span>
-                </li>
-            </ul>
+                <ul id="suggestions" v-if="suggestions.length > 0">
+                    <li v-for="suggestion in suggestions" v-on:click="showLyrics(suggestion)">
+                        <a href="#">
+                            <span class="song-artist">{{suggestion.artist}} - </span>
+                            <span class="song-title">{{suggestion.title}}</span>
+                        </a>
+                    </li>
+                </ul>
         </form>
 
 
         <div v-if="lyrics" id="lyrics-container">
-            <h3 class="song-name" v-if="lyrics.title && lyrics.artist">
+            <span id="lyrics-loading" v-if="lyrics.loading">Loading...</span>
+            <h3 class="song-name" v-if="!lyrics.loading && lyrics.title && lyrics.artist">
                 <span class="song-artist">{{lyrics.artist}} - </span>
                 <span class="song-title">{{lyrics.title}}</span>
             </h3>
-            <span id="lyrics-loading" v-if="lyrics.loading">Loading...</span>
-            <p v-if="!lyrics.loading && lyrics.body" v-html="lyrics.body"></p>
+            <p v-if="!lyrics.loading && lyrics.body" v-html="lyrics.body">
+
+            </p>
         </div>
     </div>
 
