@@ -24,6 +24,10 @@
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
 
+    <div id="page-loader">
+        <div class="lds-dual-ring"></div>
+    </div>
+
     <div id="app">
         <form id="search-form" v-on:submit.prevent="submitSearch">
             <img id="logo" src="images/logo.png" />
@@ -35,13 +39,12 @@
             <input
                 id="query"
                 autocomplete="off"
-                v-on:input="queryChange"
                 type="text"
                 placeholder="Song title..."
                 v-model="query" />
-                <ul id="suggestions" v-if="suggestions.length > 0">
-                    <li v-if="loadingQueries" class="loading-suggestions">Loading...</li>
-                    <li v-if="!loadingQueries" v-for="suggestion in suggestions" v-on:click="showLyrics(suggestion)">
+                <span v-if="!lastSuggestions()" class="loading-suggestions">Loading...</span>
+                <ul id="suggestions" v-if="lastSuggestions().length > 0">
+                    <li v-for="suggestion in lastSuggestions()" v-on:click="showLyrics(suggestion)">
                         <a href="#">
                             <span class="song-artist">{{suggestion.artist}} - </span>
                             <span class="song-title">{{suggestion.title}}</span>

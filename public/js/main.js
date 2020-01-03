@@ -22,9 +22,16 @@ const app = new Vue({
         ],
         provider: 0,
         query: "",
-        suggestions: [],
         lyrics: false,
-        loadingQueries: 0,
+        typingTimer: undefined,
+        loadingQueries: [],
+        doneTypingInterval: 100,
+    },
+
+    watch: {
+        query: function(val, oldVal) {
+            this.startCountdown();
+        }
     },
 
     methods: {
@@ -36,10 +43,9 @@ const app = new Vue({
             this.queryChange();
         },
         showLyrics(song) {
-            this.suggestions = [];
+            this.loadingQueries = [];
+            this.query = "";
             this.lyrics = { loading: true, title: song.title, artist: song.artist, body: false };
-
-
             let findQuery = song.artist + " " + song.title;
             fetch(`/${this.curProvider().name}/find/`+findQuery)
             .then(res => res.json())
@@ -49,18 +55,49 @@ const app = new Vue({
             })
         },
 
+        startCountdown() {
+            clearTimeout(this.typingTimer);
+            this.typingTimer = setTimeout(this.queryChange, this.doneTypingInterval);
+        },
+
+        clearCountdown() {
+            clearTimeout(this.typingTimer);
+        },
+
+        lastSuggestions() {
+            const lastIndex = this.loadingQueries.length;
+            let lastSug = {result: []};
+            for(let i = 0; i < this.loadingQueries.length; i++) {
+                if(this.loadingQueries[i].lastIndex === lastIndex-1) {
+                    lastSug = this.loadingQueries[i];
+                }
+            }
+
+            return lastSug.result;
+        },
+
         queryChange() {
+            const lastIndex = this.loadingQueries.length;
+            this.loadingQueries.push({lastIndex, query: this.query, result: false});
             if(this.query && this.query.trim() !== "") {
-                this.loadingQueries++;
-                fetch(`/${this.curProvider().name}/songs/`+this.query)                
+                fetch(`/${this.curProvider().name}/songs/`+this.query)
                 .then(res => res.json())
                 .then(json => {
-                    this.suggestions = json.results || [];
-                    this.loadingQueries--;
+                    this.loadingQueries.map(q => {
+                        if(q.lastIndex === lastIndex) {
+                            q.result = json.results || [];
+                        }
+                        return q;
+                    });
                 })
             } else {
                 this.query = "";
-                this.suggestions = [];
+                this.loadingQueries.map(q => {
+                    if(q.lastIndex === lastIndex) {
+                        q.result = [];
+                    }
+                    return q;
+                })
             }
         },
         submitSearch (e) {
@@ -68,3 +105,11 @@ const app = new Vue({
         }
     }
 });
+
+
+
+window.addEventListener("load", () => {
+    setTimeout(() => {
+        document.querySelector("#page-loader").classList.add("hidden");
+    }, 1000);
+})
