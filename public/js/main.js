@@ -3,10 +3,10 @@ const app = new Vue({
     el: '#app',
     data: {
         providers: [
-            {
-                name: "azlyrics",
-                url: "https://www.azlyrics.com"
-            },
+            // {
+            //     name: "azlyrics",
+            //     url: "https://www.azlyrics.com"
+            // },
             {
                 name: "genius",
                 url: "https://genius.com"
