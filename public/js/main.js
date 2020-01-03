@@ -24,8 +24,7 @@ const app = new Vue({
         query: "",
         suggestions: [],
         lyrics: false,
-        typingTimer: undefined,
-        doneTypingInterval: 100,
+        loadingQueries: 0,
     },
 
     methods: {
@@ -50,21 +49,14 @@ const app = new Vue({
             })
         },
 
-        startCountdown() {
-            clearTimeout(this.typingTimer);
-            this.typingTimer = setTimeout(this.queryChange, this.doneTypingInterval);
-        },
-
-        clearCountdown() {
-            clearTimeout(this.typingTimer);
-        },
-
         queryChange() {
             if(this.query && this.query.trim() !== "") {
+                this.loadingQueries++;
                 fetch(`/${this.curProvider().name}/songs/`+this.query)                
                 .then(res => res.json())
                 .then(json => {
                     this.suggestions = json.results || [];
+                    this.loadingQueries--;
                 })
             } else {
                 this.query = "";

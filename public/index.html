@@ -30,18 +30,18 @@
             <span id="provider-text">
                 current provider:
                 <span class="url">{{ curProvider().url }} [{{ (provider)+1 }}]</span>
-                <button id="change-provider" v-on:click="cycleProvider()">change</button>
+                <button id="change-provider" type="button" v-on:click="cycleProvider()">change</button>
             </span>
             <input
                 id="query"
                 autocomplete="off"
-                v-on:keyup="startCountdown"
-                v-on:keydown="clearCountdown"
+                v-on:input="queryChange"
                 type="text"
                 placeholder="Song title..."
                 v-model="query" />
                 <ul id="suggestions" v-if="suggestions.length > 0">
-                    <li v-for="suggestion in suggestions" v-on:click="showLyrics(suggestion)">
+                    <li v-if="loadingQueries" class="loading-suggestions">Loading...</li>
+                    <li v-if="!loadingQueries" v-for="suggestion in suggestions" v-on:click="showLyrics(suggestion)">
                         <a href="#">
                             <span class="song-artist">{{suggestion.artist}} - </span>
                             <span class="song-title">{{suggestion.title}}</span>
