@@ -1,15 +1,19 @@
 {
-  "name": "lyrics",
+  "name": "get-lyrics",
   "version": "1.0.0",
-  "description": "genius.com lyrics crawler",
+  "description": "Lyrics API and interface",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "heroku local web"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dan-garden/lyrics.git"
+  },
   "author": "Daniel Garden",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
