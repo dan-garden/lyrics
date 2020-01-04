@@ -28,6 +28,34 @@
     "name": ""
   },
   {
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "optional": false,
+            "field": "varname1",
+            "description": "<p>No type.</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "varname2",
+            "description": "<p>With type.</p>"
+          }
+        ]
+      }
+    },
+    "type": "",
+    "url": "",
+    "version": "0.0.0",
+    "filename": "./public/docs/template/main.js",
+    "group": "/Users/dan/Code/lyrics/public/docs/template/main.js",
+    "groupTitle": "/Users/dan/Code/lyrics/public/docs/template/main.js",
+    "name": ""
+  },
+  {
     "type": "get",
     "url": "find/all/:query",
     "title": "Find lyrics on all providers",
@@ -181,7 +209,7 @@
   {
     "type": "get",
     "url": "search/all/:query",
-    "title": "Search songs all providers",
+    "title": "Search all providers",
     "name": "SearchAll",
     "group": "Search",
     "version": "1.0.0",
@@ -252,7 +280,7 @@
   {
     "type": "get",
     "url": "search/genius/:query",
-    "title": "Search songs on Genius",
+    "title": "Search on Genius",
     "name": "SearchGenius",
     "group": "Search",
     "version": "1.0.0",
@@ -323,7 +351,7 @@
   {
     "type": "get",
     "url": "search/lyricsmode/:query",
-    "title": "Search songs on Lyricsmode",
+    "title": "Search on Lyricsmode",
     "name": "SearchLyricsmode",
     "group": "Search",
     "version": "1.0.0",
@@ -394,7 +422,7 @@
   {
     "type": "get",
     "url": "search/songlyrics/:query",
-    "title": "Search songs on Songlyrics",
+    "title": "Search on Songlyrics",
     "name": "SearchSonglyrics",
     "group": "Search",
     "version": "1.0.0",

@@ -43,7 +43,7 @@ app.get("/crawl/songlyrics/:url", async (req, res) => {
 
 
 /**
- * @api {get} search/all/:query Search songs all providers
+ * @api {get} search/all/:query Search all providers
  * @apiName SearchAll
  * @apiGroup Search
  * 
@@ -67,7 +67,7 @@ app.get("/search/all/:query", async (req, res) => {
 });
 
 /**
- * @api {get} search/genius/:query Search songs on Genius
+ * @api {get} search/genius/:query Search on Genius
  * @apiName SearchGenius
  * @apiGroup Search
  * 
@@ -91,7 +91,7 @@ app.get("/search/genius/:query", async (req, res) => {
 });
 
 /**
- * @api {get} search/lyricsmode/:query Search songs on Lyricsmode
+ * @api {get} search/lyricsmode/:query Search on Lyricsmode
  * @apiName SearchLyricsmode
  * @apiGroup Search
  * 
@@ -115,7 +115,7 @@ app.get("/search/lyricsmode/:query", async (req, res) => {
 });
 
 /**
- * @api {get} search/songlyrics/:query Search songs on Songlyrics
+ * @api {get} search/songlyrics/:query Search on Songlyrics
  * @apiName SearchSonglyrics
  * @apiGroup Search
  * 
