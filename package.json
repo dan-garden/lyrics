@@ -6,7 +6,8 @@
   "scripts": {
     "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "heroku local web"
+    "dev": "heroku local web",
+    "docs": "apidoc -i . -o public/docs/ -e node_modules/"
   },
   "repository": {
     "type": "git",

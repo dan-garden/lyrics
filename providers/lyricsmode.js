@@ -5,6 +5,31 @@ const {
 } = jsdom;
 
 class LyricsModeAPI {
+    static get name() {
+        return 'lyricsmode';
+    }
+
+    static get url() {
+        return "https://www.lyricsmode.com";
+    }
+
+    static slug(url) {
+        url = url.split(this.url + "/lyrics/")[1];
+        let [letter, artist, title] = url.split("/");
+        artist = artist.split("_").join("-");
+        title = title.replace(".html", "").split("_").join("-");
+        const slug = `${artist}:${title}`;
+        return slug;
+    }
+
+    static urlFromSlug(slug) {
+        let [artist, title] = slug.split(":");
+        artist = artist.split("-").join("_");
+        title = title.split("-").join("_") + ".html";
+        const url = this.url + `/lyrics/${artist[0]}/${artist}/${title}`;
+        return url;
+    }
+
     static async getLyrics(url) {
         const request = await fetch(url);
         const html = await request.text();
@@ -20,9 +45,15 @@ class LyricsModeAPI {
         let lyrics = lyricsDom.textContent.trim();
         return lyrics;
     }
+
+    static async getLyricsFromSlug(slug) {
+        const url = this.urlFromSlug(slug);
+        const lyrics = await this.getLyrics(url);
+        return lyrics;
+    }
     
     static async searchSongs(query) {
-        const request = await fetch("https://www.lyricsmode.com/search.php?search=" + encodeURIComponent(query), {
+        const request = await fetch(this.url + "/search.php?search=" + encodeURIComponent(query), {
             "credentials": "include",
             "headers": {
                 "accept": "application/json, text/plain, */*",
@@ -31,7 +62,7 @@ class LyricsModeAPI {
                 "sec-fetch-site": "same-origin",
                 "x-requested-with": "XMLHttpRequest"
             },
-            "referrer": "https://www.lyricsmode.com/",
+            "referrer": this.url,
             "referrerPolicy": "no-referrer-when-downgrade",
             "body": null,
             "method": "GET",
@@ -45,10 +76,12 @@ class LyricsModeAPI {
         } = (new JSDOM(html)).window;
 
         const results = Array.from(document.querySelectorAll(".lm-list .lm-list__row")).map(result => {
+            const url = "https://www.lyricsmode.com" + result.querySelector(".lm-list__cell-title a").href;
             return {
                 title: result.querySelector(".lm-list__cell-title").textContent.trim(),
                 artist: result.querySelector(".lm-list__cell-subtitle").textContent.trim(),
-                url: "https://www.lyricsmode.com" + result.querySelector(".lm-list__cell-title a").href
+                url,
+                slug: this.slug(url)
             }
         });
 

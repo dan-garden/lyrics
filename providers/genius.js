@@ -5,6 +5,26 @@ const {
 } = jsdom;
 
 class GeniusAPI {
+    static get name() {
+        return 'genius';
+    }
+
+    static get url() {
+        return "https://genius.com";
+    }
+
+    static slug(url) {
+        let slug = url.replace(this.url + "/", "");
+        slug = slug.replace("-lyrics", "");
+        slug = slug.toLowerCase();
+        return slug;
+    }
+
+    static urlFromSlug(slug) {
+        slug = slug.replace(/^[a-z]/,m=>m.toUpperCase());
+        return this.url + "/" + slug + "-lyrics";
+    }
+
     static async getLyrics(url) {
         const request = await fetch(url);
         const html = await request.text();
@@ -14,9 +34,15 @@ class GeniusAPI {
         let lyrics = document.querySelector(".lyrics").textContent.trim();
         return lyrics;
     }
+
+    static async getLyricsFromSlug(slug) {
+        const url = this.urlFromSlug(slug);
+        const lyrics = await this.getLyrics(url);
+        return lyrics;
+    }
     
     static async searchSongsData(query) {
-        const request = await fetch("https://genius.com/api/search/multi?q=" + encodeURIComponent(query), {
+        const request = await fetch(this.url + "/api/search/multi?q=" + encodeURIComponent(query), {
             "credentials": "include",
             "headers": {
                 "accept": "application/json, text/plain, */*",
@@ -25,7 +51,7 @@ class GeniusAPI {
                 "sec-fetch-site": "same-origin",
                 "x-requested-with": "XMLHttpRequest"
             },
-            "referrer": "https://genius.com",
+            "referrer": this.url,
             "referrerPolicy": "no-referrer-when-downgrade",
             "body": null,
             "method": "GET",
@@ -56,7 +82,8 @@ class GeniusAPI {
             return {
                 title: result.title,
                 artist: result.primary_artist.name,
-                url: result.url
+                url: result.url,
+                slug: this.slug(result.url)
             }
         })
 

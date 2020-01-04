@@ -3,10 +3,6 @@ const app = new Vue({
     el: '#app',
     data: {
         providers: [
-            // {
-            //     name: "azlyrics",
-            //     url: "https://www.azlyrics.com"
-            // },
             {
                 name: "genius",
                 url: "https://genius.com"
@@ -25,6 +21,7 @@ const app = new Vue({
         lyrics: false,
         typingTimer: undefined,
         loadingQueries: [],
+        prevQuery: "",
         doneTypingInterval: 100,
     },
 
@@ -40,18 +37,21 @@ const app = new Vue({
         },
         cycleProvider() {
             this.provider = (this.provider + 1) % this.providers.length;
+            if(this.query == "" && this.prevQuery != "") {
+                this.query = this.prevQuery;
+            }
             this.queryChange();
         },
         showLyrics(song) {
             this.loadingQueries = [];
+            this.prevQuery = this.query;
             this.query = "";
             this.lyrics = { loading: true, title: song.title, artist: song.artist, body: false };
-            let findQuery = song.artist + " " + song.title;
-            fetch(`/${this.curProvider().name}/find/`+findQuery)
+            fetch(`/lyrics/${this.curProvider().name}/`+song.slug)
             .then(res => res.json())
             .then(json => {
                 this.lyrics.loading = false;
-                this.lyrics.body = json.lyrics[this.curProvider().name].split("\n").join("<br />");
+                this.lyrics.body = json.lyrics.split("\n").join("<br />");
             })
         },
 
@@ -72,7 +72,6 @@ const app = new Vue({
                     lastSug = this.loadingQueries[i];
                 }
             }
-
             return lastSug.result;
         },
 
@@ -80,7 +79,7 @@ const app = new Vue({
             const lastIndex = this.loadingQueries.length;
             this.loadingQueries.push({lastIndex, query: this.query, result: false});
             if(this.query && this.query.trim() !== "") {
-                fetch(`/${this.curProvider().name}/songs/`+this.query)
+                fetch(`/search/${this.curProvider().name}/`+this.query)
                 .then(res => res.json())
                 .then(json => {
                     this.loadingQueries.map(q => {

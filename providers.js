@@ -5,7 +5,7 @@ const songlyrics = require("./providers/songlyrics");
 
 const types = {
     genius: require("./providers/genius"),
-    azlyrics: require("./providers/azlyrics"),
+    // azlyrics: require("./providers/azlyrics"),
     lyricsmode: require("./providers/lyricsmode"),
     songlyrics: require("./providers/songlyrics")
 };
@@ -21,9 +21,14 @@ class Providers {
             providers = Object.keys(types);
         }
 
-        let results = {};
+        let results = [];
         for(let provider of providers) {
-            results[provider] = await types[provider].searchSongs(query);
+            let providerResults = await types[provider].searchSongs(query);
+            
+            providerResults.forEach(result => {
+                result.provider = provider;
+                results.push(result);
+            });
         }
         return results;
     }
@@ -35,10 +40,23 @@ class Providers {
 
         let results = {};
         for(let provider of providers) {
-            results[provider] = await types[provider].findLyrics(query);
+            if(providers.length > 1) {
+                results[provider] = await types[provider].findLyrics(query);
+            } else {
+                results = await types[provider].findLyrics(query);
+            }
         }
         
         return results;
+    }
+
+    static async getLyricsFromSlug(slug, provider) {
+        if(types[provider]) {
+            let results = await types[provider].getLyricsFromSlug(slug);
+            return results;
+        } else {
+            throw Error("Invalid Provider.")
+        }
     }
 }
 
