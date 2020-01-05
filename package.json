@@ -1,7 +1,7 @@
 {
   "name": "get-lyrics",
   "version": "1.0.0",
-  "description": "Lyrics API and interface",
+  "description": "Get Lyrics is an API and website that scrapes different websites for song lyrics.",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
