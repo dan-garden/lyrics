@@ -1,13 +1,13 @@
 # Welcome to get-lyrics 👋
 ![Version](https://img.shields.io/badge/version-1.0.0-blue.svg?cacheSeconds=2592000)
 ![Prerequisite](https://img.shields.io/badge/node-10.16.0-blue.svg)
-[![Documentation](https://img.shields.io/badge/documentation-yes-brightgreen.svg)](http://get-lyrics.herokuapp.com/docs/)
+[![Documentation](https://img.shields.io/badge/documentation-yes-brightgreen.svg)](https://get-lyrics.herokuapp.com/docs/)
 [![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://github.com/dan-garden/lyrics/graphs/commit-activity)
 [![License: MIT](https://img.shields.io/github/license/dan-garden/get-lyrics)](https://github.com/dan-garden/lyrics/blob/master/LICENSE)
 
 > Get Lyrics is an API and website that scrapes different websites for song lyrics.
 
-### 🏠 [Homepage](http://get-lyrics.herokuapp.com/)
+### 🏠 [Homepage](https://get-lyrics.herokuapp.com/)
 
 
 ## Author
