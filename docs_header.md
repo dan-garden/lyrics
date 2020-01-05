@@ -1,4 +1,4 @@
-Get Lyrics is an API that congregrates song lyrics and search results from different lyric websites for use programatically. 
+Get Lyrics is an API that congregrates song lyrics and search results from different lyric websites for use in your website or application. 
 
 It works by scraping the data from each provider and caching it for quick access. 
 
