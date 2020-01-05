@@ -7,7 +7,7 @@
     "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "heroku local web",
-    "docs": "apidoc --template ./apidoc-template -i . -o public/docs/ -e node_modules/"
+    "docs": "apidoc -i . -o public/docs/ -e node_modules/"
   },
   "repository": {
     "type": "git",
@@ -16,6 +16,7 @@
   "author": "Daniel Garden",
   "license": "MIT",
   "dependencies": {
+    "apicache": "^1.5.2",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
@@ -26,25 +27,33 @@
     "node": "10.16.0"
   },
   "apidoc": {
-    "name": "Get Lyrics API Docs",
+    "name": "Get Lyrics",
     "version": "1.0.0",
-    "description": "apiDoc basic example",
+    "description": "Get lyrics from different providers using our API",
     "title": "Get Lyrics API Docs",
-    "url": "https://get-lyrics.herokuapp.com",
-    "sampleUrl": "https://get-lyrics.herokuapp.com",
+    "url": "https://get-lyrics.herokuapp.com/",
     "template": {
       "withCompare": true,
-      "withGenerator": true,
+      "withGenerator": false,
       "aloneDisplay": false
     },
+    "header": {
+      "title": "Introduction",
+      "filename": "docs_header.md"
+    },
+    "footer": {
+      "title": "Support Me",
+      "filename": "docs_footer.md"
+    },
     "order": [
+      "Search",
+      "Lyrics",
+      "Find",
       "SearchGenius",
       "SearchLyricsmode",
       "SearchSonglyrics",
       "SearchAll",
-
       "GetLyrics",
-
       "FindGenius",
       "FindLyricsmode",
       "FindSonglyrics",

@@ -48,6 +48,14 @@ class SongLyricsAPI {
         const lyrics = await this.getLyrics(url);
         return lyrics;
     }
+
+    static removeDuplicates(array, key) {
+        return array.filter((obj, index, self) =>
+            index === self.findIndex((el) => (
+                el[key] === obj[key]
+            ))
+        )
+    }
     
     static async searchSongs(query) {
         const request = await fetch(this.url + "/index.php?section=search&searchW=" + encodeURIComponent(query), {
@@ -72,7 +80,7 @@ class SongLyricsAPI {
             document
         } = (new JSDOM(html)).window;
 
-        const results = Array.from(document.querySelectorAll(".serpresult")).map(result => {
+        let results = Array.from(document.querySelectorAll(".serpresult")).map(result => {
             let titleSplit = result.querySelector("h3").textContent.split("Lyrics");
             titleSplit.pop();
             const title = titleSplit.join("").trim();
@@ -85,6 +93,7 @@ class SongLyricsAPI {
             }
         });
 
+        results = this.removeDuplicates(results, 'url');
         return results;
     }
     
