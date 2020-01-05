@@ -100,7 +100,7 @@ const app = new Vue({
             }
         },
         submitSearch (e) {
-            // document.location = "/search.html?query=" + this.query;
+            this.queryChange();
         }
     }
 });

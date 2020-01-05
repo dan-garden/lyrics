@@ -6,8 +6,11 @@ const cors = require('cors');
 const cache = require('apicache').middleware;
 
 const app = express();
+
+app.use('/', express.static(__dirname + '/public'));
+
 app.use(cors());
-app.use(cache('5 minutes'));
+app.use(cache('5 hours'));
 
 
 app.get("/crawl/all/:url", async (req, res) => {
@@ -369,12 +372,9 @@ app.get("/lyrics/songlyrics/:slug", async (req, res) => {
 
 
 
-
-//OTHER APIS
 app.get("/ping", async (req, res) => {
     res.send(true);
 });
 
-app.use('/', express.static(__dirname + '/public'))
 
 app.listen(process.env.PORT, console.log("Server stared on port " + process.env.PORT));

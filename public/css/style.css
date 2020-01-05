@@ -18,7 +18,7 @@ body {
     width: 100%;
     height: 100%;
     background-color: white;
-    transition: 0.9s opacity ease-out;
+    transition: 0.5s opacity ease-out;
     opacity: 1;
     display: block;
 }
@@ -59,7 +59,19 @@ body {
 
 
 #app {
+    position: relative;
+}
 
+#docs-link {
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: block;
+    color: orange;
+    border: solid 2px orange;
+    padding: 5px;
+    font-size: 14px;
+    /* text-decoration: underline; */
 }
 
 #search-form {

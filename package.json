@@ -29,7 +29,7 @@
   "apidoc": {
     "name": "Get Lyrics",
     "version": "1.0.0",
-    "description": "Get lyrics from different providers using our API",
+    "description": "Song lyrics from different providers using our API",
     "title": "Get Lyrics API Docs",
     "url": "https://get-lyrics.herokuapp.com/",
     "template": {
@@ -40,10 +40,6 @@
     "header": {
       "title": "Introduction",
       "filename": "docs_header.md"
-    },
-    "footer": {
-      "title": "Support Me",
-      "filename": "docs_footer.md"
     },
     "order": [
       "Search",
