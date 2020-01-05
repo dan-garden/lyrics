@@ -50,7 +50,21 @@ class Providers {
         return results;
     }
 
+    static detectProvider(slug) {
+        let provider = false;
+        Object.keys(types).forEach(providerName => {
+            if(slug.startsWith(types[providerName].slugPre)) {
+                provider = providerName;
+            }
+        })
+        return provider;
+    }
+
     static async getLyricsFromSlug(slug, provider) {
+        if(!provider) {
+            provider = this.detectProvider(slug);
+        }
+
         if(types[provider]) {
             let results = await types[provider].getLyricsFromSlug(slug);
             return results;

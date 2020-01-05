@@ -5,6 +5,10 @@ const {
 } = jsdom;
 
 class SongLyricsAPI {
+    static get slugPre() {
+        return 'sl-';
+    }
+
     static get name() {
         return 'songlyrics';
     }
@@ -19,10 +23,11 @@ class SongLyricsAPI {
         url = url.replace("-lyrics", "");
         let [artist, title] = url.split("/");
         let slug = `${artist}:${title}`;
-        return slug;
+        return this.slugPre + slug;
     }
 
     static urlFromSlug(slug) {
+        slug = slug.replace(this.slugPre, "");
         let [artist, title] = slug.split(":");
         const url = `${this.url}/${artist}/${title}-lyrics/`;
         return url;

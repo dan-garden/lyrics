@@ -1,15 +1,16 @@
-Apidoc Bootstrap 3 Template
-===
+Material Design Template for Apidocjs
+=====================================
 
-This is the template of [apidoc](https://github.com/apidoc/apidoc) ported to Bootstrap 3
+Material Design template theme for [apiDoc](https://apidocjs.com) RESTful API generator
 
 
-# Usage
+# Installation and Usage
+Clone the repo using Git:
+```
+git clone https://github.com/talview/apidoc-template.git
+```
 
-Clone this repository to any directory and use it with apidoc's `template` option.
-
-```shell
-git clone https://github.com/shvelo/apidoc-bs3-template.git
-cd yourproject
-apidoc --template ../apidoc-bs3-template
+Generate docs using new template
+```
+apidoc -i ./example -o ./docs -t /path/to/template/directory
 ```

@@ -22,6 +22,34 @@ define({ "api": [
     "type": "",
     "url": "",
     "version": "0.0.0",
+    "filename": "./apidoc-template/main.js",
+    "group": "/Users/dan/Code/lyrics/apidoc-template/main.js",
+    "groupTitle": "/Users/dan/Code/lyrics/apidoc-template/main.js",
+    "name": ""
+  },
+  {
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "optional": false,
+            "field": "varname1",
+            "description": "<p>No type.</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "varname2",
+            "description": "<p>With type.</p>"
+          }
+        ]
+      }
+    },
+    "type": "",
+    "url": "",
+    "version": "0.0.0",
     "filename": "./public/docs/main.js",
     "group": "/Users/dan/Code/lyrics/public/docs/main.js",
     "groupTitle": "/Users/dan/Code/lyrics/public/docs/main.js",
@@ -96,7 +124,12 @@ define({ "api": [
       }
     },
     "filename": "./index.js",
-    "groupTitle": "Find"
+    "groupTitle": "Find",
+    "sampleRequest": [
+      {
+        "url": "https://get-lyrics.herokuapp.comfind/all/:query"
+      }
+    ]
   },
   {
     "type": "get",
@@ -132,7 +165,12 @@ define({ "api": [
       }
     },
     "filename": "./index.js",
-    "groupTitle": "Find"
+    "groupTitle": "Find",
+    "sampleRequest": [
+      {
+        "url": "https://get-lyrics.herokuapp.comfind/genius/:query"
+      }
+    ]
   },
   {
     "type": "get",
@@ -168,7 +206,12 @@ define({ "api": [
       }
     },
     "filename": "./index.js",
-    "groupTitle": "Find"
+    "groupTitle": "Find",
+    "sampleRequest": [
+      {
+        "url": "https://get-lyrics.herokuapp.comfind/lyricsmode/:query"
+      }
+    ]
   },
   {
     "type": "get",
@@ -204,7 +247,53 @@ define({ "api": [
       }
     },
     "filename": "./index.js",
-    "groupTitle": "Find"
+    "groupTitle": "Find",
+    "sampleRequest": [
+      {
+        "url": "https://get-lyrics.herokuapp.comfind/songlyrics/:query"
+      }
+    ]
+  },
+  {
+    "type": "get",
+    "url": "lyrics/:slug",
+    "title": "Get lyrics",
+    "name": "GetLyrics",
+    "group": "Lyrics",
+    "version": "1.0.0",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "slug",
+            "description": "<p>Unique identifier</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Object",
+            "optional": false,
+            "field": "lyrics",
+            "description": "<p>Lyrics found</p>"
+          }
+        ]
+      }
+    },
+    "filename": "./index.js",
+    "groupTitle": "Lyrics",
+    "sampleRequest": [
+      {
+        "url": "https://get-lyrics.herokuapp.comlyrics/:slug"
+      }
+    ]
   },
   {
     "type": "get",
@@ -262,7 +351,7 @@ define({ "api": [
             "type": "String",
             "optional": false,
             "field": "results.slug",
-            "description": "<p>Uniquely generated slug</p>"
+            "description": "<p>Unique identifier</p>"
           },
           {
             "group": "Success 200",
@@ -275,7 +364,12 @@ define({ "api": [
       }
     },
     "filename": "./index.js",
-    "groupTitle": "Search"
+    "groupTitle": "Search",
+    "sampleRequest": [
+      {
+        "url": "https://get-lyrics.herokuapp.comsearch/all/:query"
+      }
+    ]
   },
   {
     "type": "get",
@@ -333,7 +427,7 @@ define({ "api": [
             "type": "String",
             "optional": false,
             "field": "results.slug",
-            "description": "<p>Uniquely generated slug</p>"
+            "description": "<p>Unique identifier</p>"
           },
           {
             "group": "Success 200",
@@ -346,7 +440,12 @@ define({ "api": [
       }
     },
     "filename": "./index.js",
-    "groupTitle": "Search"
+    "groupTitle": "Search",
+    "sampleRequest": [
+      {
+        "url": "https://get-lyrics.herokuapp.comsearch/genius/:query"
+      }
+    ]
   },
   {
     "type": "get",
@@ -404,7 +503,7 @@ define({ "api": [
             "type": "String",
             "optional": false,
             "field": "results.slug",
-            "description": "<p>Uniquely generated slug</p>"
+            "description": "<p>Unique identifier</p>"
           },
           {
             "group": "Success 200",
@@ -417,7 +516,12 @@ define({ "api": [
       }
     },
     "filename": "./index.js",
-    "groupTitle": "Search"
+    "groupTitle": "Search",
+    "sampleRequest": [
+      {
+        "url": "https://get-lyrics.herokuapp.comsearch/lyricsmode/:query"
+      }
+    ]
   },
   {
     "type": "get",
@@ -475,7 +579,7 @@ define({ "api": [
             "type": "String",
             "optional": false,
             "field": "results.slug",
-            "description": "<p>Uniquely generated slug</p>"
+            "description": "<p>Unique identifier</p>"
           },
           {
             "group": "Success 200",
@@ -488,6 +592,11 @@ define({ "api": [
       }
     },
     "filename": "./index.js",
-    "groupTitle": "Search"
+    "groupTitle": "Search",
+    "sampleRequest": [
+      {
+        "url": "https://get-lyrics.herokuapp.comsearch/songlyrics/:query"
+      }
+    ]
   }
 ] });

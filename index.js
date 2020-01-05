@@ -55,7 +55,7 @@ app.get("/crawl/songlyrics/:url", async (req, res) => {
  * @apiSuccess {String} results.title  Title of song
  * @apiSuccess {String} results.artist Primary artist of song
  * @apiSuccess {String} results.url URL of lyrics page
- * @apiSuccess {String} results.slug Uniquely generated slug
+ * @apiSuccess {String} results.slug Unique identifier
  * @apiSuccess {String} results.provider Lyrics provider used
  */
 
@@ -79,7 +79,7 @@ app.get("/search/all/:query", async (req, res) => {
  * @apiSuccess {String} results.title  Title of song
  * @apiSuccess {String} results.artist Primary artist of song
  * @apiSuccess {String} results.url URL of lyrics page
- * @apiSuccess {String} results.slug Uniquely generated slug
+ * @apiSuccess {String} results.slug Unique identifier
  * @apiSuccess {String} results.provider Lyrics provider used
  */
 
@@ -103,7 +103,7 @@ app.get("/search/genius/:query", async (req, res) => {
  * @apiSuccess {String} results.title  Title of song
  * @apiSuccess {String} results.artist Primary artist of song
  * @apiSuccess {String} results.url URL of lyrics page
- * @apiSuccess {String} results.slug Uniquely generated slug
+ * @apiSuccess {String} results.slug Unique identifier
  * @apiSuccess {String} results.provider Lyrics provider used
  */
 
@@ -127,7 +127,7 @@ app.get("/search/lyricsmode/:query", async (req, res) => {
  * @apiSuccess {String} results.title  Title of song
  * @apiSuccess {String} results.artist Primary artist of song
  * @apiSuccess {String} results.url URL of lyrics page
- * @apiSuccess {String} results.slug Uniquely generated slug
+ * @apiSuccess {String} results.slug Unique identifier
  * @apiSuccess {String} results.provider Lyrics provider used
  */
 
@@ -221,6 +221,23 @@ app.get("/find/songlyrics/:query", async (req, res) => {
 });
 
 
+/**
+ * @api {get} lyrics/:slug Get lyrics
+ * @apiName GetLyrics
+ * @apiGroup Lyrics
+ * 
+ * @apiVersion 1.0.0
+ *
+ * @apiParam {String} slug Unique identifier
+ *
+ * @apiSuccess {Object} lyrics Lyrics found
+ */
+app.get("/lyrics/:slug", async (req, res) => {
+    const lyrics = await providers.getLyricsFromSlug(req.params.slug);
+    res.json({
+        lyrics: lyrics || false
+    });
+});
 
 
 app.get("/lyrics/genius/:slug", async (req, res) => {

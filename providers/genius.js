@@ -5,6 +5,10 @@ const {
 } = jsdom;
 
 class GeniusAPI {
+    static get slugPre() {
+        return 'ge-';
+    }
+
     static get name() {
         return 'genius';
     }
@@ -17,10 +21,11 @@ class GeniusAPI {
         let slug = url.replace(this.url + "/", "");
         slug = slug.replace("-lyrics", "");
         slug = slug.toLowerCase();
-        return slug;
+        return this.slugPre + slug;
     }
 
     static urlFromSlug(slug) {
+        slug = slug.replace(this.slugPre, "");
         slug = slug.replace(/^[a-z]/,m=>m.toUpperCase());
         return this.url + "/" + slug + "-lyrics";
     }

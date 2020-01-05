@@ -5,6 +5,10 @@ const {
 } = jsdom;
 
 class LyricsModeAPI {
+    static get slugPre() {
+        return 'lm-';
+    }
+
     static get name() {
         return 'lyricsmode';
     }
@@ -19,10 +23,11 @@ class LyricsModeAPI {
         artist = artist.split("_").join("-");
         title = title.replace(".html", "").split("_").join("-");
         const slug = `${artist}:${title}`;
-        return slug;
+        return this.slugPre + slug;
     }
 
     static urlFromSlug(slug) {
+        slug = slug.replace(this.slugPre, "");
         let [artist, title] = slug.split(":");
         artist = artist.split("-").join("_");
         title = title.split("-").join("_") + ".html";
