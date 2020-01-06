@@ -23,7 +23,12 @@ class Providers {
 
         let results = [];
         for(let provider of providers) {
-            let providerResults = await types[provider].searchSongs(query);
+            let providerResults;
+            try {
+                providerResults = await types[provider].searchSongs(query);
+            } catch(e) {
+                providerResults = [];
+            }
             
             providerResults.forEach(result => {
                 result.provider = provider;
@@ -41,9 +46,17 @@ class Providers {
         let results = {};
         for(let provider of providers) {
             if(providers.length > 1) {
-                results[provider] = await types[provider].findLyrics(query);
+                try {
+                    results[provider] = await types[provider].findLyrics(query);
+                } catch(e) {
+                    results[provider] = false;
+                }
             } else {
-                results = await types[provider].findLyrics(query);
+                try {
+                    results = await types[provider].findLyrics(query);
+                } catch(e) {
+                    results = false;
+                }
             }
         }
         

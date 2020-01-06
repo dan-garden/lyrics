@@ -18,12 +18,16 @@ class SongLyricsAPI {
     }
 
     static slug(url) {
-        url = url.substring(0, url.length - 1);
-        url = url.replace(this.url+"/", "");
-        url = url.replace("-lyrics", "");
-        let [artist, title] = url.split("/");
-        let slug = `${artist}:${title}`;
-        return this.slugPre + slug;
+        try {
+            url = url.substring(0, url.length - 1);
+            url = url.replace(this.url+"/", "");
+            url = url.replace("-lyrics", "");
+            let [artist, title] = url.split("/");
+            let slug = `${artist}:${title}`;
+            return this.slugPre + slug;   
+        } catch(e) {
+            return "";
+        }
     }
 
     static urlFromSlug(slug) {
@@ -40,7 +44,12 @@ class SongLyricsAPI {
             document
         } = (new JSDOM(html)).window;
         let lyrics = document.querySelector("#songLyricsDiv").textContent.trim();
-        return lyrics;
+        const [artist, title] = document.querySelector(".pagetitle h1").textContent.replace(" Lyrics", "").split(" - ");
+        return {
+            artist,
+            title,
+            lyrics
+        };
     }
 
     static async getLyricsFromSlug(slug) {

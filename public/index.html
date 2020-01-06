@@ -45,8 +45,8 @@
                 v-model="query" />
                 <span v-if="!lastSuggestions()" class="loading-suggestions">Loading...</span>
                 <ul id="suggestions" v-if="lastSuggestions().length > 0">
-                    <li v-for="suggestion in lastSuggestions()" v-on:click="showLyrics(suggestion)">
-                        <a href="#">
+                    <li v-for="suggestion in lastSuggestions()">
+                        <a v-on:click="showLyrics(suggestion)" href="javascript: void(0)">
                             <span class="song-artist">{{suggestion.artist}} - </span>
                             <span class="song-title">{{suggestion.title}}</span>
                         </a>

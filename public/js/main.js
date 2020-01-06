@@ -32,27 +32,64 @@ const app = new Vue({
     },
 
     methods: {
+        init() {
+            document.querySelector("#page-loader").classList.add("hidden");
+            window.onpopstate = (e) => {
+                if(e.state){
+                    this.updatePage(e.state);
+                } else {
+                    this.lyrics = {};
+                }
+            };
+
+            if(document.location.pathname) {
+                const slug = document.location.pathname.replace("/", "");
+                this.showLyrics({ slug }, false);
+            }
+        },
+
+        updateUrl(song, urlPath) {
+            window.history.pushState(song, "", "/" + urlPath);
+            document.title = `${song.artist} - ${song.title}`;
+        },
+
+        updatePage(song) {
+            document.title = `${song.artist} - ${song.title}`;
+            this.showLyrics(song, false);
+        },
+
         curProvider() {
             return this.providers[this.provider];
         },
+
         cycleProvider() {
             this.provider = (this.provider + 1) % this.providers.length;
-            if(this.query == "" && this.prevQuery != "") {
-                this.query = this.prevQuery;
-            }
+            // if(this.query == "" && this.prevQuery != "") {
+            //     this.query = this.prevQuery;
+            // }
             this.queryChange();
         },
-        showLyrics(song) {
-            this.loadingQueries = [];
-            this.prevQuery = this.query;
-            this.query = "";
-            this.lyrics = { loading: true, title: song.title, artist: song.artist, body: false };
-            fetch(`/lyrics/${this.curProvider().name}/`+song.slug)
-            .then(res => res.json())
-            .then(json => {
-                this.lyrics.loading = false;
-                this.lyrics.body = json.lyrics.split("\n").join("<br />");
-            })
+
+        showLyrics(song, updateUrl=true) {
+            if(song.slug !== "") {
+                this.loadingQueries = [];
+                this.prevQuery = this.query;
+                this.query = "";
+                if(updateUrl) {
+                    this.updateUrl(song, song.slug);
+                }
+                this.lyrics = { loading: true, body: false, title: false, artist: false };
+                fetch(`/lyrics/`+song.slug)
+                .then(res => res.json())
+                .then(json => {
+                    this.lyrics.loading = false;
+                    if(json.result) {
+                        this.lyrics.artist = json.result.artist;
+                        this.lyrics.title = json.result.title;
+                        this.lyrics.body = json.result.lyrics.split("\n").join("<br />");;
+                    }
+                })
+            }
         },
 
         startCountdown() {
@@ -99,6 +136,7 @@ const app = new Vue({
                 })
             }
         },
+
         submitSearch (e) {
             this.queryChange();
         }
@@ -109,6 +147,6 @@ const app = new Vue({
 
 window.addEventListener("load", () => {
     setTimeout(() => {
-        document.querySelector("#page-loader").classList.add("hidden");
+        app.init();
     }, 1000);
 })

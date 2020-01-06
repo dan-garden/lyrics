@@ -18,10 +18,14 @@ class GeniusAPI {
     }
 
     static slug(url) {
-        let slug = url.replace(this.url + "/", "");
-        slug = slug.replace("-lyrics", "");
-        slug = slug.toLowerCase();
-        return this.slugPre + slug;
+        try {
+            let slug = url.replace(this.url + "/", "");
+            slug = slug.replace("-lyrics", "");
+            slug = slug.toLowerCase();
+            return this.slugPre + slug;
+        } catch(e) {
+            return "";
+        }
     }
 
     static urlFromSlug(slug) {
@@ -36,8 +40,15 @@ class GeniusAPI {
         const {
             document
         } = (new JSDOM(html)).window;
-        let lyrics = document.querySelector(".lyrics").textContent.trim();
-        return lyrics;
+        const artist = document.querySelector(".header_with_cover_art-primary_info-primary_artist").textContent.trim();
+        const title = document.querySelector(".header_with_cover_art-primary_info-title").textContent.trim();
+        const lyrics = document.querySelector(".lyrics").textContent.trim();
+
+        return {
+            artist,
+            title,
+            lyrics
+        };
     }
 
     static async getLyricsFromSlug(slug) {

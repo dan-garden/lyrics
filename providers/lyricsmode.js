@@ -18,12 +18,16 @@ class LyricsModeAPI {
     }
 
     static slug(url) {
-        url = url.split(this.url + "/lyrics/")[1];
-        let [letter, artist, title] = url.split("/");
-        artist = artist.split("_").join("-");
-        title = title.replace(".html", "").split("_").join("-");
-        const slug = `${artist}:${title}`;
-        return this.slugPre + slug;
+        try {
+            url = url.split(this.url + "/lyrics/")[1];
+            let [letter, artist, title] = url.split("/");
+            artist = artist.split("_").join("-");
+            title = title.replace(".html", "").split("_").join("-");
+            const slug = `${artist}:${title}`;
+            return this.slugPre + slug;
+        } catch(e) {
+            return "";
+        }
     }
 
     static urlFromSlug(slug) {
@@ -48,7 +52,13 @@ class LyricsModeAPI {
         });
 
         let lyrics = lyricsDom.textContent.trim();
-        return lyrics;
+        const [artist, title] = document.querySelector(".song_name").textContent.split("\n").map(l=>l.trim()).join(" ").trim().split(" lyrics").shift().split(" – ");
+
+        return {
+            artist,
+            title,
+            lyrics
+        };
     }
 
     static async getLyricsFromSlug(slug) {

@@ -11,7 +11,7 @@ define({
   },
   "header": {
     "title": "Introduction",
-    "content": "<p>Get Lyrics is an API that congregrates song lyrics and search results from different lyric websites for use programatically.</p>\n<p>It works by scraping the data from each provider and caching it for quick access.</p>\n<p>If you have any issues please submit them on <a href=\"https://github.com/dan-garden/lyrics/issues\">GitHub</a></p>\n"
+    "content": "<p>Get Lyrics is an API that congregrates song lyrics and search results from different lyric websites for use in your website or application.</p>\n<p>It works by scraping the data from each provider and caching it for quick access.</p>\n<p>If you have any issues please submit them on <a href=\"https://github.com/dan-garden/lyrics/issues\">GitHub</a></p>\n"
   },
   "order": [
     "Search",
@@ -32,7 +32,7 @@ define({
   "apidoc": "0.3.0",
   "generator": {
     "name": "apidoc",
-    "time": "2020-01-05T12:11:10.097Z",
+    "time": "2020-01-06T04:14:02.428Z",
     "url": "http://apidocjs.com",
     "version": "0.19.1"
   }
