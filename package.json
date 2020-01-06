@@ -1,8 +1,26 @@
 {
   "name": "get-lyrics",
+  "title": "Get Lyrics",
   "version": "1.0.0",
   "description": "Get Lyrics is an API and website that scrapes different websites for song lyrics.",
   "main": "index.js",
+  "url": "https://get-lyrics.herokuapp.com",
+  "keywords": [
+    "lyrics",
+    "get",
+    "songs",
+    "music",
+    "api",
+    "docs",
+    "documentation",
+    "tunes",
+    "song",
+    "lyric",
+    "genius",
+    "lyricsmode",
+    "songlyrics",
+    "azlyrics"
+  ],
   "scripts": {
     "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
