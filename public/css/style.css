@@ -73,18 +73,19 @@ body {
 
 #search-form {
     width: 100%;
-    max-width: 500px;
+    max-width: 800px;
     padding: 10px;
     margin: auto;
 }
 
 #search-form #provider-text {
-    text-align: center;
     color: lightgrey;
     font-size: 12px;
     text-align: right;
+    max-width: 500px;
     width: 100%;
     display: block;
+    margin: auto;
 }
 
 #search-form #provider-text .url {
@@ -125,6 +126,7 @@ body {
     font-size: 12px;
     padding: 5px;
     width: 100%;
+    max-width: 500px;
     border: solid 1px lightgrey;
     display: block;
     margin: auto;
