@@ -148,5 +148,5 @@ const app = new Vue({
 window.addEventListener("load", () => {
     setTimeout(() => {
         app.init();
-    }, 1000);
+    }, 0);
 })
